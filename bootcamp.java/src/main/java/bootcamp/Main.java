@@ -8,9 +8,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CSVGen.genCsvFileProduct("./products.csv", Boolean.TRUE);
+        Boolean reload = Boolean.FALSE;
+        CSVGen.genCsvFileProduct("./products.csv", reload);
         List<Product> products = CSVGen.ParseProductFromCsv("./products.csv");
-        CSVGen.genCsvFileClient("./clients.csv", Boolean.TRUE);
+
+        CSVGen.genCsvFileClient("./clients.csv", reload);
         List<Client> clients = CSVGen.ParseClientFromCsv("./clients.csv");
+
     }
 }

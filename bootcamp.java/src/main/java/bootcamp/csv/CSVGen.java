@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,15 +81,7 @@ public class CSVGen {
         for (String fileLine : fileLines) {
             String[] splitedText = fileLine.split(",");
             ArrayList<String> columnList = new ArrayList<String>();
-            for (String s : splitedText) {
-                //Если колонка начинается на кавычки или заканчиваеться на кавычки
-                if (IsColumnPart(s)) {
-                    String lastText = columnList.get(columnList.size() - 1);
-                    columnList.set(columnList.size() - 1, lastText + "," + s);
-                } else {
-                    columnList.add(s);
-                }
-            }
+            Collections.addAll(columnList, splitedText);
             Product product = new Product();
             product.idSales = Integer.valueOf(columnList.get(0));
             product.prodCategory = columnList.get(1);
@@ -102,7 +95,6 @@ public class CSVGen {
     }
 
     public static List<Client> ParseClientFromCsv(String filename) {
-        //Загружаем строки из файла
         List<Client> clients = new ArrayList<Client>();
         List<String> fileLines = null;
         try {
@@ -115,15 +107,7 @@ public class CSVGen {
         for (String fileLine : fileLines) {
             String[] splitedText = fileLine.split(",");
             ArrayList<String> columnList = new ArrayList<String>();
-            for (String s : splitedText) {
-                //Если колонка начинается на кавычки или заканчиваеться на кавычки
-                if (IsColumnPart(s)) {
-                    String lastText = columnList.get(columnList.size() - 1);
-                    columnList.set(columnList.size() - 1, lastText + "," + s);
-                } else {
-                    columnList.add(s);
-                }
-            }
+            Collections.addAll(columnList, splitedText);
             Client client = new Client();
             client.idClient = Integer.valueOf(columnList.get(0));
             client.clientFirstName = columnList.get(1);
@@ -134,10 +118,5 @@ public class CSVGen {
         return clients;
     }
 
-    //Проверка является ли колонка частью предыдущей колонки
-    private static boolean IsColumnPart(String text) {
-        String trimText = text.trim();
-        //Если в тексте одна ковычка и текст на нее заканчивается значит это часть предыдущей колонки
-        return trimText.indexOf("\"") == trimText.lastIndexOf("\"") && trimText.endsWith("\"");
-    }
+
 }
