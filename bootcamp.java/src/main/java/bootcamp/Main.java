@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Boolean reload = Boolean.FALSE;
+        Boolean reload = Boolean.TRUE;
         CSVGen.genCsvFileProduct("./products.csv", reload);
         List<Product> products = CSVGen.ParseProductFromCsv("./products.csv");
 

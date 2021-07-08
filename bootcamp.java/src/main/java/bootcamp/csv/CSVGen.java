@@ -4,11 +4,13 @@ import bootcamp.analytics.models.Product;
 import net.andreinc.mockneat.MockNeat;
 import java.io.IOException;
 import java.nio.file.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 
 public class CSVGen {
@@ -17,6 +19,7 @@ public class CSVGen {
 
     public static void genCsvFileProduct(String filename, Boolean reload){
         MockNeat m = MockNeat.threadLocal();
+        DecimalFormat decimalFormat = new DecimalFormat("###0.00");
         final Path path = Paths.get(filename);
         if(reload){
             try {
@@ -28,10 +31,10 @@ public class CSVGen {
         String header = "idSales,prodCategory,prodName,prodCount,prodPrice,idClient\n";
         m.fmt(Arrays.stream(header.trim().split(",")).map(s -> "#{" + s + "}").collect(Collectors.joining(",")))
                 .param("idSales",  m.intSeq())
-                .param("prodCategory", m.from(new String[]{"abc", "acd", "adf"}))
-                .param("prodName", m.from(new String[]{"ccc", "ffff", "ggg"}))
+                .param("prodCategory", m.from(new String[]{"Coca-Cola", "Danone", "Unilever", "Kellogg", "Mars", "Mondelez", "Nestle", "PepsiCo"}))
+                .param("prodName", m.from(new String[]{"Soda", "Juice", "Chocolate bar", "Crisps", "Tea", "Coffee", "Milk", "Ice-cream", "Cookies", "Candies", "Bread"}))
                 .param("prodCount", m.ints().range(1, 100))
-                .param("prodPrice", m.doubles().range(50.0, 1500.0))
+                .param("prodPrice", m.doubles().bound(1500.00).map((p) -> decimalFormat.format(p).replace(",", ".")))
                 .param("idClient",  m.ints().rangeClosed(0, clientNum))
                 .list(clientNum * 5)
                 .consume(list -> {
