@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static bootcamp.analytics.Analytics.countSoldProducts;
+import static bootcamp.analytics.Analytics.mostExpSold;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,8 +22,11 @@ public class Main {
         List<Client> clients = CSVGen.ParseClientFromCsv("./clients.csv");
 
         Map<String, Integer> task11 = countSoldProducts(products);
-        System.out.println("\nHow much products sold in each category?");
         task11.forEach((key, value) -> System.out.println(key + " " + value));
-        System.out.println("\nEnd executing...");
+
+        Map<String, Double> task12 = mostExpSold(products, clients);
+        task12.forEach((key, value) -> System.out.println(key + " " + value));
+
+        System.out.println("End executing...");
     }
 }

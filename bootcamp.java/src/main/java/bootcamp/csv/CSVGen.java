@@ -23,7 +23,7 @@ public class CSVGen {
         if(reload){
             try {
                 Files.deleteIfExists(path);
-                String header = "idSales,prodCategory,prodName,prodCount,prodPrice,idClient\n";
+                String header = "idSales,prodCategory,prodName,prodCount,prodPrice,idClient";
                 m.fmt(Arrays.stream(header.trim().split(",")).map(s -> "#{" + s + "}").collect(Collectors.joining(",")))
                         .param("idSales",  m.intSeq())
                         .param("prodCategory", m.from(new String[]{"Coca-Cola", "Danone", "Unilever", "Kellogg", "Mars", "Mondelez", "Nestle", "PepsiCo"}))
@@ -38,7 +38,7 @@ public class CSVGen {
                                 Files.write(path, list,              StandardOpenOption.APPEND, StandardOpenOption.WRITE); }
                             catch (IOException e) { e.printStackTrace(); }
                         });
-                System.out.println("Product file generated!");
+                System.out.println("Product file generated!\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,7 +51,7 @@ public class CSVGen {
         if(reload){
             try {
                 Files.deleteIfExists(path);
-                String header = "idClient,clientFirstName,clientLastName,countryCode\n";
+                String header = "idClient,clientFirstName,clientLastName,countryCode";
                 m.fmt(Arrays.stream(header.trim().split(",")).map(s -> "#{" + s + "}").collect(Collectors.joining(",")))
                         .param("idClient",  m.intSeq())
                         .param("clientFirstName", m.names().first())
@@ -64,7 +64,7 @@ public class CSVGen {
                                 Files.write(path, list,              StandardOpenOption.APPEND, StandardOpenOption.WRITE); }
                             catch (IOException e) { e.printStackTrace(); }
                         });
-                System.out.println("Client file generated!");
+                System.out.println("Client file generated!\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -94,7 +94,7 @@ public class CSVGen {
             product.idClient = Integer.valueOf(columnList.get(5));
             products.add(product);
         }
-        System.out.println("Product file readed!");
+        System.out.println("Product file readed!\n");
         return products;
     }
 
@@ -118,7 +118,7 @@ public class CSVGen {
             client.countryCode = columnList.get(3);
             clients.add(client);
         }
-        System.out.println("Client file readed!");
+        System.out.println("Client file readed!\n");
         return clients;
     }
 }
