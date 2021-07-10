@@ -8,8 +8,7 @@ import bootcamp.csv.CSVGen;
 import java.util.List;
 import java.util.Map;
 
-import static bootcamp.analytics.Analytics.countSoldProducts;
-import static bootcamp.analytics.Analytics.mostExpSold;
+import static bootcamp.analytics.Analytics.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,6 +25,9 @@ public class Main {
 
         Map<String, Double> task12 = mostExpSold(products, clients);
         task12.forEach((key, value) -> System.out.println(key + " " + value));
+
+        Map<String, Double> task13 = secondMaxSpent(products, clients);
+        task13.forEach((key, value) -> System.out.println(key + " " + value));
 
         System.out.println("End executing...");
     }
