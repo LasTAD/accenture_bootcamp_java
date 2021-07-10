@@ -45,16 +45,15 @@ public class Analytics {
         Map<String, Double> resultSet = new HashMap<String, Double>();
         for (int i = 0; i <clients.size(); i++) {
             String clientFullName = clients.get(i).clientFirstName + ' ' + clients.get(i).clientLastName;
-            List <Double> spents = new ArrayList<Double>();
+            List <Double> spending = new ArrayList<Double>();
             for (Product product : products) {
                 if (product.idClient == i) {
                     Double cost = product.prodCount * product.prodPrice;
-                    spents.add(cost);
+                    spending.add(cost);
                 }
             }
-            Collections.sort(spents);
-            int len = spents.size();
-            resultSet.put(clientFullName, spents.get((len>1) ? 1 : 0));
+            Collections.sort(spending);
+            resultSet.put(clientFullName, spending.get((spending.size() > 1) ? 1 : 0));
         }
         return resultSet;
     }
