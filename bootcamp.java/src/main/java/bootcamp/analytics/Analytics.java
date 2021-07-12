@@ -57,4 +57,20 @@ public class Analytics {
         }
         return resultSet;
     }
+
+    public static Map<String, Double> countSpentMoneyByCat(List<Product> products, List<Client> clients, String catName){
+        System.out.printf("\nThe total amount spent by the client for a specific category - %s\n", catName);
+        Map<String, Double> resultSet = new HashMap<String, Double>();
+        for (int i = 0; i <clients.size(); i++) {
+            String clientFullName = clients.get(i).clientFirstName + ' ' + clients.get(i).clientLastName;
+            Double cost = 0.0;
+            for (Product product : products) {
+                if (product.idClient == i && catName.equals(product.prodCategory)) {
+                    cost += product.prodCount * product.prodPrice;
+                }
+            }
+            resultSet.put(clientFullName, cost);
+        }
+        return resultSet;
+    }
 }

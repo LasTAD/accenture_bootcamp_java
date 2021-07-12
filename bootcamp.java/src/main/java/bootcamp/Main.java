@@ -29,6 +29,10 @@ public class Main {
         Map<String, Double> task13 = secondMaxSpent(products, clients);
         task13.forEach((key, value) -> System.out.println(key + " " + value));
 
+        String catName = "Mars";
+        Map<String, Double> task21 = countSpentMoneyByCat(products, clients, catName);
+        task21.forEach((key, value) -> System.out.println(key + " " + value));
+
         System.out.println("End executing...");
     }
 }
